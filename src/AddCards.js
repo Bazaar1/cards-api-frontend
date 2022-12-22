@@ -88,7 +88,7 @@ async function generateCards(token, code, re) {
         };
     }
     try {
-        const url = 'http://localhost:8080/cards/' + code
+        const url = 'http://52.56.192.168:8080/cards/' + code
         console.log(url)
         const d =  await axios.get(url,
             {
