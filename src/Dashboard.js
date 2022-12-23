@@ -5,10 +5,21 @@ import useToken from "./useToken";
 import Login from "./Login";
 import IsAuth from "./IsAuth";
 import logo from "./1.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
     const { token, setToken } = useToken();
     const [userCont, setUserCont] = React.useState([])
+
+
+    const x = IsAuth(token, setToken);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!x) {
+            navigate("/login");
+        }
+    }, [x]);
 
     useEffect(() => {
         getDataAxiosUser(token).then(r => {
@@ -18,22 +29,6 @@ export default function Dashboard() {
             e => e
         );
     }, [token]);
-
-    const isAuth = IsAuth(token, setToken)
-
-    if (!isAuth) {
-        return <Login setToken={setToken} />
-    }
-
-    // const { exp } = jwt(token)
-    //
-    // if (Math.round(Date.now() / 1000) >= exp) {
-    //     return <Login setToken={setToken} />
-    // }
-    //
-    // if(!token) {
-    //     return <Login setToken={setToken} />
-    // }
 
     return(
         <div className="container">

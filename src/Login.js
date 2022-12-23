@@ -1,9 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Login.css';
 import axios from "axios";
+import useToken from "./useToken";
+import Dashboard from "./Dashboard";
+import IsAuth from "./IsAuth";
+import { useNavigate } from "react-router-dom";
+
+
 
 
 async function loginUser(credentials) {
+
     try {
         return {
             token: await axios.post('http://52.56.192.168:443/accounts/login', JSON.stringify(credentials)),
@@ -18,11 +25,24 @@ async function loginUser(credentials) {
         };
     }
 }
-export default function Login({ setToken }) {
+export default function Login() {
+
+    const { token, setToken } = useToken();
+
+    const x = IsAuth(token);
+    const navigate = useNavigate();
+    console.log(x)
+
+    useEffect(() => {
+        if (x) {
+            navigate("/dashboard");
+        }
+            }, [x]);
 
     const [email, setUserName] = useState();
     const [password, setPassword] = useState();
     const [incorrect, setIncorrect] = useState();
+
 
     const handleSubmit = async e => {
         e.preventDefault();

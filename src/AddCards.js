@@ -5,6 +5,7 @@ import IsAuth from "./IsAuth";
 import images from "./images";
 import logo from "./1.png";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function AddCards() {
 
@@ -14,17 +15,20 @@ export default function AddCards() {
 
     const [ invalid, setInvalid ] = useState();
 
-    const isAuth = IsAuth(token)
-
     const [code, setCode] = useState();
 
     const re = new RegExp('[A-Z0-9]{24}');
 
     const [visible, setVisible] = useState(true);
 
-    if (!isAuth) {
-        return <Login setToken={setToken} />
-    }
+    const x = IsAuth(token, setToken);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!x) {
+            navigate("/login");
+        }
+    }, [x]);
 
     const removeElement = () => {
         setVisible((prev) => !prev);

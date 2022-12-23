@@ -7,6 +7,7 @@ export default function IsAuth(token) {
     try {
         exp = jwt(token)
     } catch (e) {
+        console.log("return 1: ", e)
         return false
     }
 
@@ -15,12 +16,15 @@ export default function IsAuth(token) {
 
     if (Math.round(Date.now() / 1000) >= exp["exp"]) {
         localStorage.removeItem('token');
+        console.log("return 2")
         return false
     }
 
     if(!token) {
         localStorage.removeItem('token');
+        console.log("return 3")
         return false
     }
+    console.log("return 4")
     return true
 }
