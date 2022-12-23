@@ -53,7 +53,7 @@ export default function Dashboard() {
 
 async function getDataAxiosUser(token) {
     try {
-        return await axios.get('http://52.56.192.168:8080/cards/me',
+        return await axios.get('http://52.56.192.168:443/cards/me',
             {
                 headers: {
                     'Accept': 'application/json',

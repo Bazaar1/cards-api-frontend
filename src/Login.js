@@ -6,7 +6,7 @@ import axios from "axios";
 async function loginUser(credentials) {
     try {
         return {
-            token: await axios.post('https://52.56.192.168:8080/accounts/login', JSON.stringify(credentials)),
+            token: await axios.post('http://52.56.192.168:443/accounts/login', JSON.stringify(credentials)),
             incorrect: null
         }
 

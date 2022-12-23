@@ -27,6 +27,6 @@ export default function Home() {
 }
 
 function getDataAxios(){
-    return axios.get("https://52.56.192.168:8080/cards/all")
+    return axios.get("http://52.56.192.168:443/cards/all")
 }
 
